@@ -1,0 +1,6 @@
+[submodule "deps/bert"]
+	path = deps/bert
+	url = git@github.com:stleon/JavaScriptBert.git
+[submodule "deps/botui"]
+	path = deps/botui
+	url = git@github.com:stleon/botui.git
