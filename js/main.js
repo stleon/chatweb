@@ -1,7 +1,7 @@
 function setUpBert() {
     bert = new BertClass();
     bert.encodeObjectKeysAsNumber = true;
-    bert.encodeStringAsBinary = true;
+    bert.encodeStringAsBinary = false;
 };
 
 function setUpWS() {
@@ -16,7 +16,8 @@ function inputForm() {
         action: {
         }
     }).then(function (res) {
-        send(bert.tuple(bert.atom("msg"), bert.tuple(bert.atom("text"), res.value)));
+        encoded = new TextEncoder("utf-8").encode(res.value);
+        send(bert.tuple(bert.atom("msg"), bert.tuple(bert.atom("text"), encoded)));
         inputForm()
     });
 };
@@ -24,7 +25,8 @@ function inputForm() {
 function send(Obj) {
     var encoded = bert.encode(Obj);
     var byteArray = bert.binary_to_list(encoded);
-    websocket.send(new Uint8Array(byteArray));
+    var data = new Uint8Array(byteArray);
+    websocket.send(data);
 }
 
 function onMessage(msg) {
@@ -36,8 +38,10 @@ function onMessage(msg) {
         case "msg":
             switch(data.value[1][0]) {
                 case "text":
+                    array = new Uint8Array(data.value[1][1]);
+                    decoded = new TextDecoder("utf-8").decode(array);
                     botui.message.add({
-                        content: data.value[1][1].value
+                        content: decoded
                     });
                     inputForm();
                     break;
