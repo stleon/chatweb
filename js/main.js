@@ -4,9 +4,10 @@ function setUpBert() {
     bert.encodeStringAsBinary = false;
 };
 
-function setUpWS() {
-    websocket = new WebSocket("ws://127.0.0.1:8080/ws");
+function setUpWS(token) {
+    websocket = new WebSocket("ws://127.0.0.1:8080/ws?token=" + token);
     websocket.binaryType = "arraybuffer";
+    websocket.onopen = onOpen;
     websocket.onmessage = onMessage;
     websocket.onclose = onClose;
 };
@@ -27,6 +28,10 @@ function send(Obj) {
     var byteArray = bert.binary_to_list(encoded);
     var data = new Uint8Array(byteArray);
     websocket.send(data);
+}
+
+function onOpen(){
+    setUpBert();
 }
 
 function onMessage(msg) {
@@ -73,26 +78,35 @@ function onClose() {
     });
 };
 
-var botui = new BotUI('chat-app');
-
-botui.message.add({
-    content: 'Hello, wanna chat with someone?'
-});
-
-botui.action.button({
-    action: [
-      {
-        text: 'Yes',
-        value: true
-      }
-    ]
-}).then(function (res) {
-
-    setUpBert();
-    setUpWS();
-
-    botui.message.add({
-      content: 'Trying to find someone...'
+function main(token) {
+    new Vue({
+        el: '.g-recaptcha',
+        data: {
+            available: false
+        }
     });
 
-});
+    var botui = new BotUI('chat-app');
+
+    botui.message.add({
+        content: 'Hello, wanna chat with someone?'
+    });
+
+    botui.action.button({
+        action: [
+            {
+            text: 'Yes',
+            value: true
+            }
+        ]
+    }).then(function (res) {
+
+        if (token.length != 0) {
+            setUpWS(token);
+            botui.message.add({
+                content: 'Trying to find someone...'
+            });
+        }
+
+    });
+};

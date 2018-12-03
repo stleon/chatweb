@@ -13,13 +13,18 @@
 
     <title>Chat</title>
 
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
   </head>
 
 
   <body>
+
       <div id="chat-app" class="botui-app-container">
+        <div v-if="available" class="g-recaptcha" data-sitekey="6LfmUH4UAAAAACldktbc5Taq9SaOQniSQfL8ETZW" data-callback="main"></div>
         <bot-ui></bot-ui>
       </div>
+
 
     <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
     <script src="deps/botui/build/botui.min.js"></script>
