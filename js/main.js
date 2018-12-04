@@ -86,7 +86,7 @@ function main(token) {
         }
     });
 
-    var botui = new BotUI('chat-app');
+    botui = new BotUI('chat-app');
 
     botui.message.add({
         content: 'Hello, wanna chat with someone?'
