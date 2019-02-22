@@ -4,8 +4,8 @@ function setUpBert() {
     bert.encodeStringAsBinary = false;
 };
 
-function setUpWS(token) {
-    websocket = new WebSocket("ws://127.0.0.1:8080/ws?token=" + token);
+function setUpWS(url) {
+    websocket = new WebSocket(url);
     websocket.binaryType = "arraybuffer";
     websocket.onopen = onOpen;
     websocket.onmessage = onMessage;
@@ -101,12 +101,14 @@ function main(token) {
         ]
     }).then(function (res) {
 
+        var url = "ws://127.0.0.1:8080/ws";
         if (token.length != 0) {
-            setUpWS(token);
-            botui.message.add({
-                content: 'Trying to find someone...'
-            });
+            url = url + "?token=" + token;
         }
+        setUpWS(url);
+        botui.message.add({
+            content: 'Trying to find someone...'
+        });
 
     });
 };
