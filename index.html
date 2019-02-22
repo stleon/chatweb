@@ -30,6 +30,17 @@
     <script src="deps/botui/build/botui.min.js"></script>
     <script src="deps/bert/bert.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      window.getCookie = function(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+      }
+      var sessionid = window.getCookie("sessionid");
+
+      if (sessionid) {
+        main("");
+      }
+    </script>
 
   </body>
 
