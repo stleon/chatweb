@@ -101,10 +101,14 @@ function main(token) {
         ]
     }).then(function (res) {
 
-        var url = "ws://127.0.0.1:8080/ws";
+        var host = window.location.hostname;
+        var port = window.location.port;
+
+        var url = "ws://" + host + ':' + port + "/ws"
         if (token.length != 0) {
             url = url + "?token=" + token;
         }
+
         setUpWS(url);
         botui.message.add({
             content: 'Trying to find someone...'
