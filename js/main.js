@@ -1,3 +1,8 @@
+var is_typing = false;
+const typing_delay = 5000;
+var timerId;
+var typing_message_index;
+
 function setUpBert() {
     bert = new BertClass();
     bert.encodeObjectKeysAsNumber = true;
@@ -30,6 +35,17 @@ function send(Obj) {
     websocket.send(data);
 }
 
+function send_typing(is_typing) {
+    encoded = new TextEncoder("utf-8").encode("typing");
+    send(bert.tuple(bert.atom("signal"), 1, is_typing));
+}
+
+function delete_typing_message() {
+    if (typing_message_index != undefined) {
+        botui.message.remove(typing_message_index, {});
+    }
+}
+
 function onOpen(){
     setUpBert();
 }
@@ -45,6 +61,7 @@ function onMessage(msg) {
                 case "text":
                     array = new Uint8Array(data.value[1][1]);
                     decoded = new TextDecoder("utf-8").decode(array);
+                    delete_typing_message();
                     botui.message.add({
                         content: decoded
                     });
@@ -53,15 +70,27 @@ function onMessage(msg) {
             }
             break;
         case "signal":
-            switch(data.value[1].value) {
-                case "channel_created":
+            switch(data.value[1]) {
+                case 0:  // channel_created
                     inputForm();
+                    break;
+                case 1:  // typing
+                    if (data.value[2] == true) {
+                        botui.message.add({
+                            loading: true
+                        }).then(function (index) {
+                            typing_message_index = index;
+                        });
+                    } else {
+                        delete_typing_message();
+                    }
                     break;
             }
       }
 };
 
 function onClose() {
+    delete_typing_message();
     botui.message.add({
         content: 'Chat have been canceled'
     });
@@ -79,10 +108,10 @@ function onClose() {
 };
 
 function main(token) {
-    new Vue({
+    var recaptcha  = new Vue({
         el: '.g-recaptcha',
         data: {
-            available: false
+            seen: false
         }
     });
 
@@ -116,3 +145,26 @@ function main(token) {
 
     });
 };
+
+function typing(event) {
+
+    if (event.key == "Enter") {
+        is_typing = false;
+        clearTimeout(timerId);
+    } else {
+        if (is_typing == false) {
+            is_typing = true;
+            send_typing(is_typing);
+
+        } else {
+            if (timerId != undefined) {
+                clearTimeout(timerId);
+            }
+        };
+
+        timerId = setTimeout(function(){
+            is_typing = false;
+            send_typing(is_typing);
+        }, typing_delay);
+    }
+}

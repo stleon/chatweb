@@ -19,9 +19,8 @@
 
 
   <body>
-
-      <div id="chat-app" class="botui-app-container">
-        <div v-if="available" class="g-recaptcha" data-sitekey="6LfmUH4UAAAAACldktbc5Taq9SaOQniSQfL8ETZW" data-callback="main"></div>
+      <div id="chat-app" class="botui-app-container" @keyup="typing($event)">
+        <div v-if="seen" class="g-recaptcha" data-sitekey="6LfmUH4UAAAAACldktbc5Taq9SaOQniSQfL8ETZW" data-callback="main"></div>
         <bot-ui></bot-ui>
       </div>
 
