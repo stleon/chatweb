@@ -17,15 +17,39 @@ function setUpWS(url) {
     websocket.onclose = onClose;
 };
 
-function inputForm() {
+function inputFormText() {
     botui.action.text({
         action: {
+            autoHide: false
         }
     }).then(function (res) {
         encoded = new TextEncoder("utf-8").encode(res.value);
         send(bert.tuple(bert.atom("msg"), bert.tuple(bert.atom("text"), encoded)));
-        inputForm()
-    });
+        inputFormText()
+    })
+};
+
+function inputFormFile() {
+    botui.action.text({
+        action: {
+            sub_type: 'file',
+            cssClass: 'file-upload',
+            autoHide: false,
+            button: {
+                icon: 'chevron-circle-right',
+                label: ' '
+              }
+        }
+    }).then(function (res) {
+        console.log(res);
+        file = document.getElementsByClassName("file-upload")[0].files[0];
+        var reader = new FileReader();
+        reader.onloadend = function(e) {
+            send_image(this.result);
+        };
+        reader.readAsBinaryString(file);
+        inputFormFile()
+    })
 };
 
 function send(Obj) {
@@ -38,6 +62,11 @@ function send(Obj) {
 function send_typing(is_typing) {
     encoded = new TextEncoder("utf-8").encode("typing");
     send(bert.tuple(bert.atom("signal"), 1, is_typing));
+}
+
+function send_image(string) {
+    var Obj = bert.tuple(bert.atom("msg"), bert.tuple(bert.atom("img"), bert.binary(string)));
+    send(Obj);
 }
 
 function delete_typing_message() {
@@ -65,14 +94,21 @@ function onMessage(msg) {
                     botui.message.add({
                         content: decoded
                     });
-                    inputForm();
+                    inputFormText();
+                    break;
+                case "img":
+                    url = 'data:image/jpeg;base64,' + btoa(data.value[1][1].value),
+                    botui.message.add({
+                        content: '![image](' + url + ')'
+                    });
+                    inputFormFile();
                     break;
             }
             break;
         case "signal":
             switch(data.value[1]) {
                 case 0:  // channel_created
-                    inputForm();
+                    inputFormFile();
                     break;
                 case 1:  // typing
                     if (data.value[2] == true) {
