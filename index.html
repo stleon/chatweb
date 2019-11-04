@@ -5,10 +5,6 @@
   <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link rel="stylesheet" href="deps/botui/build/botui.min.css">
-    <link rel="stylesheet" href="deps/botui/build/botui-theme-default.css">
     <link rel="stylesheet" href="css/main.css">
 
     <title>Chat</title>
@@ -17,14 +13,33 @@
 
 
   <body>
-      <div id="chat-app" class="botui-app-container">
-        <bot-ui></bot-ui>
-      </div>
+    <ul class="menu-list">
+      <li>
+        <a href="#">Чат</a>
+      </li>
+      <li>
+        <a href="#">Контакты</a>
+      </li>
+      <li>
+        <a href="#">Приложения</a>
+      </li>
+    </ul>
 
-    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
-    <script src="deps/botui/build/botui.min.js"></script>
+    <div id="container">
+      <h1>Find someone</h1>
+
+      <button id="find">Найти</button>
+      <p class="stranger"><b>Someone:</b> 1232ajslkdal asndansdlak gakjfalkf akfnaskfnaslkf,mas dkasndlkasldkaskldjlaksda fnaklfnalksnflkasmflaflk asnlkasnflkasfnas fasfnkalsfn</p>
+      <p class="you">asndlkasndas dasndlkasndlkanlkgal ,masnflkanslkfas,.ajflkdjaflah <b>- You</b> </p>
+      <p class="stranger"><b>Someone:</b> 1232ajslkdal askldjlaksda fnaklfnalksnflkasmflaflk asnlkasnflkasfnas fasfnkalsfn</p>
+      <p class="you">asndlkasndas dasndlk,masnflkanslkfas,.ajflkdjaflah <b>- You</b> </p>
+
+      <p class="stranger"><b>Someone:</b> <i>typing...</i></p>
+      <input id="input_message" type="text"></input>
+
+    </div>
+
     <script src="deps/bert/bert.js"></script>
-    <script src="js/main.js"></script>
 
   </body>
 

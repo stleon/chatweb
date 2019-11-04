@@ -1,44 +1,74 @@
-/* get from demo https://botui.org */
-
+/*
 html, body {
     margin: 0;
     padding: 0;
   }
-  
-  body {
-    background-color: #25ceb6;
-  }
-  
-  iframe {
+
+*/
+
+body {
+    background-color: #FFF;
+    color:#000;
+    font-size: 14pt;
+    font-family: monospace;
+    margin-top: 0;
+}
+
+#container {
+    margin: 0 auto;
+    width: 600px;
+}
+
+.you {
+    text-align: right;
+}
+
+#input_message {
     width: 100%;
-  }
-  
-  .botui-app-container {
-    margin-top: 40px;
-  }
-  
-  .botui-container {
-    background-color: #25ceb6;
-  }
-  .botui-message-content {
-    color: #12796b;
-    background-color: #b6fff5;
-  }
-  
-  .botui-message-content.human {
-    background-color: #28635a;
-  }
-  
-  .botui-actions-text-input {
-    color: #36887d;
-    border-bottom: 1px solid #b6fff5;
-  }
-  
-  .botui-actions-buttons-button {
-    line-height: 1 !important;
-    background-color: #28635a;
-  }
-  
-  .botui-message-content-link {
-    color: #12796b;
-  }
+    height: 50px;
+    font-size: 1.5em;
+}
+
+a:link, a:visited, a:active {
+    color: #000;
+    text-decoration: none;
+}
+a:hover {
+    color: #F9266F;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+li {
+    float: left;
+    border-right: 1px solid #000;
+}
+
+/*
+li:last-child {
+    border-right: none;
+}
+*/
+
+li a {
+  display: block;
+  color: #FFF;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.menu-list {
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
