@@ -24,7 +24,7 @@ audio {
 }
 
 #find {
-    border: 2px solid #000; /* Green */
+    border: 2px solid #000;
     background-color: #FFF;
     color: black;
     padding: 15px 32px;
@@ -42,13 +42,54 @@ audio {
     color: white;
 }
 
+#enter {
+    border: 2px solid #000;
+    background-color: #FFF;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bolder;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    float: right;
+}
+
+#enter:hover {
+    background-color: #000;
+    color: white;
+}
+
+#esc {
+    border: 2px solid #000;
+    background-color: #FFF;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bolder;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    float: right;
+}
+
+#esc:hover {
+    background-color: #000;
+    color: white;
+}
+
+
 .you {
     text-align: right;
 }
 
 #input_message {
+    resize: none;
     width: 100%;
-    height: 50px;
     font-size: 1.5em;
 }
 
