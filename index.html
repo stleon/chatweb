@@ -13,22 +13,23 @@
 
 
   <body>
+    <audio id="sound1" src="click.mp3" preload="auto"></audio>
     <ul class="menu-list">
       <li>
-        <a href="#">Чат</a>
+        <a href="#" onclick="document.getElementById('sound1').play();">Чат</a>
       </li>
       <li>
-        <a href="#">Контакты</a>
+        <a href="#" onclick="document.getElementById('sound1').play();">Контакты</a>
       </li>
       <li>
-        <a href="#">Приложения</a>
+        <a href="#" onclick="document.getElementById('sound1').play();">Приложения</a>
       </li>
     </ul>
 
     <div id="container">
-      <h1>Find someone</h1>
+      <h1><button id="find" onclick="document.getElementById('sound1').play();">Find</button> someone</h1>
 
-      <button id="find">Найти</button>
+
       <p class="stranger"><b>Someone:</b> 1232ajslkdal asndansdlak gakjfalkf akfnaskfnaslkf,mas dkasndlkasldkaskldjlaksda fnaklfnalksnflkasmflaflk asnlkasnflkasfnas fasfnkalsfn</p>
       <p class="you">asndlkasndas dasndlkasndlkanlkgal ,masnflkanslkfas,.ajflkdjaflah <b>- You</b> </p>
       <p class="stranger"><b>Someone:</b> 1232ajslkdal askldjlaksda fnaklfnalksnflkasmflaflk asnlkasnflkasfnas fasfnkalsfn</p>
