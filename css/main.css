@@ -82,6 +82,11 @@ audio {
     color: white;
 }
 
+#messages {
+    width: 100%;
+    height:400px;
+    overflow: auto;
+}
 
 .you {
     text-align: right;
